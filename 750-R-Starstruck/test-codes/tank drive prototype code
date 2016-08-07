@@ -1,0 +1,10 @@
+void operatorControl() 
+{
+while (true)
+{
+  motorSet(2,joystickGetAnalog(1,3) - joystickGetAnalog(1,4));
+  motorSet(3,-joystickGetAnalog(1,3) - joystickGetAnalog(1,4));
+
+}
+}
+
