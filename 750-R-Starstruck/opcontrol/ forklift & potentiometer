@@ -1,0 +1,38 @@
+const unsigned char pot = 2;
+const unsigned char liftMot = 4;
+const unsigned char liftMot2 = 3;
+const unsigned char liftMot3 = 8;
+const unsigned char liftMot4 = 9;
+		
+		
+		
+		if (joystickGetDigital(1,8, JOY_UP)){
+			if (analogRead(pot) < 900){
+				motorSet(liftMot, -127);
+				motorSet(liftMot2, -127);
+				motorSet(liftMot3, 127);
+				motorSet(liftMot4, 127);
+			}
+			else {
+				motorStop(liftMot);
+				motorStop(liftMot2);
+				motorStop(liftMot3);
+				motorStop(liftMot4);
+			}
+		}
+		if (joystickGetDigital(1,8, JOY_DOWN)){
+
+			if (analogRead(pot)> 10){
+			motorSet(liftMot, 127);
+			motorSet(liftMot2, 127);
+			motorSet(liftMot3, -127);
+			motorSet(liftMot4, -127);
+		}
+			else{
+				motorStop(liftMot);
+				motorStop(liftMot2);
+				motorStop(liftMot3);
+				motorStop(liftMot4);
+			}
+	
+		}
