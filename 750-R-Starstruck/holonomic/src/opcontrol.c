@@ -55,7 +55,9 @@ int pos = 0;
 
 void operatorControl() {
 	while (1)
-	{
+	{// lift code starts here
+		// potentiometer code also starts here
+		// buttons are up and down on group 8
 		if (joystickGetDigital(1,8, JOY_UP)){
 			if (analogRead(pot) < 900){
 				motorSet(liftMot, -127);
@@ -85,11 +87,11 @@ void operatorControl() {
 				motorStop(liftMot4);
 			}
 
-		}
+		}// drive code is here
 
 		if (abs(joystickGetAnalog(1,3))>thresh){
 				ch3 = joystickGetAnalog(1,3);
-		}// this is great
+		}
 		else {
 			ch3 = 0;
 		}
