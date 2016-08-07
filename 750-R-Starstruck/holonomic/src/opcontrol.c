@@ -89,7 +89,7 @@ void operatorControl() {
 
 		if (abs(joystickGetAnalog(1,3))>thresh){
 				ch3 = joystickGetAnalog(1,3);
-		}
+		}// this is great
 		else {
 			ch3 = 0;
 		}
