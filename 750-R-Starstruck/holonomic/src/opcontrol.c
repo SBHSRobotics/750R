@@ -34,6 +34,7 @@ const unsigned char topleftlift = 3;
 const unsigned char bottomleftlift = 4;
 const unsigned char toprightlift = 8;
 const unsigned char bottomrightlift = 9;
+//(Lift Port Definitions)
 
 
 
@@ -41,10 +42,7 @@ const unsigned char backLeft = 5;
 const unsigned char frontLeft = 6;
 const unsigned char backRight = 7;
 const unsigned char frontRight = 2;
-const unsigned char liftMot = 4;
-const unsigned char liftMot2 = 3;
-const unsigned char liftMot3 = 8;
-const unsigned char liftMot4 = 9;
+//(X-Drive Port Definitions)
 
 //Sensor Ports
 const unsigned char pot = 2;
@@ -63,7 +61,7 @@ void operatorControl() {
 
 		int up = joystickGetDigital(1, 8, JOY_UP);
 		int down = joystickGetDigital(1, 8, JOY_DOWN);
-		//topleft motor is upside down
+		//Lift Mechanism
 		if (up) {
 			motorSet(topleftlift, 127);
 			motorSet(bottomleftlift, 127);
@@ -80,7 +78,7 @@ void operatorControl() {
 			motorSet(toprightlift, 0);
 			motorSet(bottomrightlift, 0);
 		}
-
+		//X-Drive Mechanism
 		if (abs(joystickGetAnalog(1, 3)) > thresh) {
 			ch3 = joystickGetAnalog(1, 3);
 		} else {
@@ -96,8 +94,8 @@ void operatorControl() {
 		} else {
 			ch1 = 0;
 		}
-
-		motorSet(frontRight, -ch3 + ch4 + ch1);// the values for the holonomic
+		//Setting the motors
+		motorSet(frontRight, -ch3 + ch4 + ch1);
 		motorSet(backRight, ch3 + ch4 - ch1);
 		motorSet(frontLeft, -ch3 - ch4 - ch1);
 		motorSet(backLeft, -ch3 + ch4 - ch1);
