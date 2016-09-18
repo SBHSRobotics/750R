@@ -98,9 +98,9 @@ void operatorControl() {
 		}
 
 		motorSet(frontRight, -ch3 + ch4 + ch1);
-		motorSet(backRight, ch3 + ch4 - ch1);
+		motorSet(backRight, -ch3 + ch4 - ch1);
 		motorSet(frontLeft, -ch3 - ch4 - ch1);
-		motorSet(backLeft, -ch3 + ch4 - ch1);
+		motorSet(backLeft, ch3 + ch4 - ch1);
 
 	}
 }
