@@ -17,7 +17,6 @@
 
 #include "main.h"
 
-
 /**
  * Runs the user operator control code.
  *
@@ -31,6 +30,13 @@
  */
 
 //Motor Ports
+const unsigned char topleftlift = 3;
+const unsigned char bottomleftlift = 4;
+const unsigned char toprightlift = 8;
+const unsigned char bottomrightlift = 9;
+
+
+
 const unsigned char backLeft = 5;
 const unsigned char frontLeft = 6;
 const unsigned char backRight = 7;
@@ -52,64 +58,49 @@ int ch3;
 int ch4;
 int pos = 0;
 
-
 void operatorControl() {
-	while (1)
-	{
-		if (joystickGetDigital(1,8, JOY_UP)){
-			if (analogRead(pot) < 900){
-				motorSet(liftMot, -127);
-				motorSet(liftMot2, -127);
-				motorSet(liftMot3, 127);
-				motorSet(liftMot4, 127);
-			}
-			else {
-				motorStop(liftMot);
-				motorStop(liftMot2);
-				motorStop(liftMot3);
-				motorStop(liftMot4);
-			}
-		}
-		if (joystickGetDigital(1,8, JOY_DOWN)){
+	while (1) {
 
-			if (analogRead(pot)> 10){
-			motorSet(liftMot, 127);
-			motorSet(liftMot2, 127);
-			motorSet(liftMot3, -127);
-			motorSet(liftMot4, -127);
-		}
-			else{
-				motorStop(liftMot);
-				motorStop(liftMot2);
-				motorStop(liftMot3);
-				motorStop(liftMot4);
-			}
-
+		int up = joystickGetDigital(1, 8, JOY_UP);
+		int down = joystickGetDigital(1, 8, JOY_DOWN);
+		//topleft motor is upside down
+		if (up) {
+			motorSet(topleftlift, 127);
+			motorSet(bottomleftlift, 127);
+			motorSet(toprightlift, -127);
+			motorSet(bottomrightlift, -127);
+		} else if (down) {
+			motorSet(topleftlift, -127);
+			motorSet(bottomleftlift, -127);
+			motorSet(toprightlift, 127);
+			motorSet(bottomrightlift, 127);
+		} else {
+			motorSet(topleftlift, 0);
+			motorSet(bottomleftlift, 0);
+			motorSet(toprightlift, 0);
+			motorSet(bottomrightlift, 0);
 		}
 
-		if (abs(joystickGetAnalog(1,3))>thresh){
-				ch3 = joystickGetAnalog(1,3);
-		}
-		else {
+		if (abs(joystickGetAnalog(1, 3)) > thresh) {
+			ch3 = joystickGetAnalog(1, 3);
+		} else {
 			ch3 = 0;
 		}
-		if (abs(joystickGetAnalog(1,4))>thresh){
-				ch4 = joystickGetAnalog(1,4);
-		}
-		else {
+		if (abs(joystickGetAnalog(1, 4)) > thresh) {
+			ch4 = joystickGetAnalog(1, 4);
+		} else {
 			ch4 = 0;
 		}
-		if (abs(joystickGetAnalog(1,1))>thresh){
-				ch1 = joystickGetAnalog(1,1);
-		}
-		else {
+		if (abs(joystickGetAnalog(1, 1)) > thresh) {
+			ch1 = joystickGetAnalog(1, 1);
+		} else {
 			ch1 = 0;
 		}
 
-		motorSet(frontRight,ch3 - ch4 - ch1);
-		motorSet(backRight,-ch3 - ch4 + ch1);
-		motorSet(frontLeft,  ch3 + ch4 + ch1);
-		motorSet(backLeft, ch3 - ch4 + ch1);
+		motorSet(frontRight, -ch3 + ch4 + ch1);
+		motorSet(backRight, ch3 + ch4 - ch1);
+		motorSet(frontLeft, -ch3 - ch4 - ch1);
+		motorSet(backLeft, -ch3 + ch4 - ch1);
 
 	}
 }
