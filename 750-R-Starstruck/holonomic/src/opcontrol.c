@@ -97,7 +97,7 @@ void operatorControl() {
 			ch1 = 0;
 		}
 
-		motorSet(frontRight, -ch3 + ch4 + ch1);
+		motorSet(frontRight, -ch3 + ch4 + ch1);// the values for the holonomic
 		motorSet(backRight, ch3 + ch4 - ch1);
 		motorSet(frontLeft, -ch3 - ch4 - ch1);
 		motorSet(backLeft, -ch3 + ch4 - ch1);
