@@ -35,7 +35,7 @@
 
 void operatorControl() {
 	while (true) {
-		if (digitalRead(11) == 0) {
+		if (digitalRead(11) == 0) {// #awesome
 			motorSet(1, 127);
 			motorSet(10, 127);
 		}

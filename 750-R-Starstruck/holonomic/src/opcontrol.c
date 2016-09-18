@@ -35,10 +35,10 @@ const unsigned char backLeft = 5;
 const unsigned char frontLeft = 6;
 const unsigned char backRight = 7;
 const unsigned char frontRight = 2;
-const unsigned char liftMot = 4;
-const unsigned char liftMot2 = 3;
-const unsigned char liftMot3 = 8;
-const unsigned char liftMot4 = 9;
+const unsigned char liftMot_bottomleft = 4;
+const unsigned char liftMot_topleft = 3;
+const unsigned char liftMot_topright= 8;
+const unsigned char liftMot_bottomright = 9;
 
 //Sensor Ports
 const unsigned char pot = 2;
@@ -55,38 +55,47 @@ int pos = 0;
 
 void operatorControl() {
 	while (1)
-	{
+	{// potentiometer code
+		if (analogRead(pot)<= 10){
+			motorStop(liftMot_bottomleft);
+			motorStop(liftMot_topleft);
+			motorStop(liftMot_topright);
+			motorStop(liftMot_bottomright);
+
+			motorSet(liftMot_bottomleft, 127);
+			motorSet(liftMot_topleft, 127);
+			motorSet(liftMot_topright, 127);
+			motorSet(liftMot_bottomright, 127);
+		}
+		if (analogRead(pot)<= 1000){
+			motorStop(liftMot_bottomleft);
+			motorStop(liftMot_topleft);
+			motorStop(liftMot_topright);
+			motorStop(liftMot_bottomright);
+
+			motorSet(liftMot_bottomleft, -127);
+			motorSet(liftMot_topleft, -127);
+			motorSet(liftMot_topright, -127);
+			motorSet(liftMot_bottomright, -127);
+		}// general forklift code
 		if (joystickGetDigital(1,8, JOY_UP)){
-			if (analogRead(pot) < 900){
-				motorSet(liftMot, -127);
-				motorSet(liftMot2, -127);
-				motorSet(liftMot3, 127);
-				motorSet(liftMot4, 127);
-			}
-			else {
-				motorStop(liftMot);
-				motorStop(liftMot2);
-				motorStop(liftMot3);
-				motorStop(liftMot4);
+
+				motorSet(liftMot_bottomleft, 127);
+				motorSet(liftMot_topleft, 127);
+				motorSet(liftMot_topright, 127);
+				motorSet(liftMot_bottomright, 127);
 			}
 		}
 		if (joystickGetDigital(1,8, JOY_DOWN)){
 
-			if (analogRead(pot)> 10){
-			motorSet(liftMot, 127);
-			motorSet(liftMot2, 127);
-			motorSet(liftMot3, -127);
-			motorSet(liftMot4, -127);
-		}
-			else{
-				motorStop(liftMot);
-				motorStop(liftMot2);
-				motorStop(liftMot3);
-				motorStop(liftMot4);
-			}
+				motorSet(liftMot_bottomleft, -127);
+				motorSet(liftMot_topleft, -127);
+				motorSet(liftMot_topright, -127);
+				motorSet(liftMot_bottomright, -127);
+
 
 		}
-
+// holonomic code
 		if (abs(joystickGetAnalog(1,3))>thresh){
 				ch3 = joystickGetAnalog(1,3);
 		}
@@ -112,4 +121,4 @@ void operatorControl() {
 		motorSet(backLeft, ch3 - ch4 + ch1);
 
 	}
-}
+
