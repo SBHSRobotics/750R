@@ -107,11 +107,13 @@ void operatorControl() {
 		int close=joystickGetDigital(1, 8, JOY_RIGHT);
 
 		if(open){
+			motorSet(pincerright, -127);
 			motorSet(pincerleft, 127);
 		}
 
 		else if(close){
-			motorSet(pincerright, -127);
+			motorSet(pincerright, 127);
+			motorSet(pincerleft, -127);
 		}
 
 		//Setting the motors
