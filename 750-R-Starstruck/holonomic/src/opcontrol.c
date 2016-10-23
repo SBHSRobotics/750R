@@ -44,6 +44,13 @@ const unsigned char backRight = 7;
 const unsigned char frontRight = 2;
 //(X-Drive Port Definitions)
 
+
+
+const unsigned char pincerleft = 1;
+const unsigned char pincerright = 10;
+//(Pincers Port Defenitions)
+
+
 //Sensor Ports
 const unsigned char pot = 2;
 
@@ -94,6 +101,21 @@ void operatorControl() {
 		} else {
 			ch1 = 0;
 		}
+
+		//Pincer Mechanism
+		int open=joystickGetDigital(1, 8, JOY_LEFT);
+		int close=joystickGetDigital(1, 8, JOY_RIGHT);
+
+		if(open){
+			motorSet(pincerright, -127);
+			motorSet(pincerleft, 127);
+		}
+
+		else if(close){
+			motorSet(pincerright, 127);
+			motorSet(pincerleft, -127);
+		}
+
 		//Setting the motors
 		motorSet(frontRight, -ch3 + ch4 + ch1);
 		motorSet(backRight, ch3 + ch4 - ch1);
